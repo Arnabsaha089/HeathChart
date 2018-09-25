@@ -1,0 +1,127 @@
+HotelBookingMain------
+case 4: addRoom();
+			break;
+
+
+addRoom()
+{
+	System.out.print("\n Enter the hotel id:");// needs to be validated.
+	String hid=sc.nextLine();
+	System.out.print("\n Enter the room id:");
+	String rid=sc.nextLine();
+	System.out.print("\n Enter the room number:");
+	String r_no=sc.nextLine();
+	System.out.print("\n Enter the room type:");
+	String  r_type=sc.nextLine();
+	System.out.print("\n Enter the room cost:");
+	float  r_cost=sc.nextFloat();
+	System.out.print("\n Enter the room availability:");
+	String r_available=sc.nextLine();
+	//System.out.print("\n Enter the room photo:"); phtos cannt be stored in data base
+	//String hid=sc.nextLine();
+	
+	RoomDetails rd=new RoomDetails(hid,rid,r_no,r_type,r_cost,r_available,photo);
+	int data=hbs.addRoom(rd);
+	
+}
+
+
+// Nothing to add in service class
+In Dao class------
+addRoom(RoomDetails rd)
+{
+	int data=0;
+	try
+	{
+		con=DBUtil.getConn();
+		String query="insert into RoomDetails values(?,?,?,?,?,?,?)";
+		pst=con.prepareStatement(query);
+		pst.setString(1,getHotel_id() );
+		pst.setString(2,getRoom_id());
+		pst.setString(3,getRoom_no());
+		pst.setString(4.getRoom_type());
+		pst.setFloat(5,getCost());
+		pst.setString(6,getAvailability());
+		pst.setString(7,getPhoto());
+		
+		pst.executeQuery();
+		data=pst.executeUpdate();
+
+	}
+	catch()
+	{
+		e.printStackTrace();
+		throw new HotelBookingException("Unable to add Room details...");  
+	}
+	
+	return data;
+}
+HotelBookingMain------
+case 5: deleteRoom();
+			break;
+
+deleteRoom()
+{
+	System.out.println("Enter the room id:");///// how can we delete all room numbers...
+	String r_id=sc.next();
+	System.out.println("Enter the room number:");
+	String r_no=sc.next();
+	int data=hbs.deleteRoom(r_id);
+}
+// Nothing to add in service class
+
+In Dao class
+deleteRoom(String id)
+{
+	int data;
+	try{
+		con=DBUtil.getConn();
+		String query="delete from RoomDetails where room_id=?";
+		pst=con.prepareStatement(query);
+		pst.setString(1,id);
+		pst.executeQuery();
+		data=pst.executeUpdate();
+		
+	}
+	catch(Exception e)
+	{
+			e.printStackTrace();
+		throw new HotelBookingException("Unable to delete Room details...");  
+	}
+	return data;
+}
+
+
+HotelBookingMain------
+case 6: modifyRoom();
+			break;
+modifyRoom()
+{
+	System.out.println("Enter the room id:");///// how can we Modify room with same id but diff room numbers
+	String r_id=sc.next();
+	hbs.deleteRoom(id);
+	System.out.print("\n Enter the Hotel id:");
+	String hid=sc.nextLine();
+	System.out.print("\n Enter the room number:");
+	String r_no=sc.nextLine();
+	System.out.print("\n Enter the room type:");
+	String  r_type=sc.nextLine();
+	System.out.print("\n Enter the room cost:");
+	float  r_cost=sc.nextFloat();
+	System.out.print("\n Enter the room availability:");
+	String r_available=sc.nextLine();
+	//System.out.print("\n Enter the room photo:"); phtos cannt be stored in data base
+	//String hid=sc.nextLine();
+	
+	RoomDetails rd=new RoomDetails(hid,r_id,r_no,r_type,r_cost,r_available,photo);
+	int data=hbs.addRoom(rd);
+	
+}
+In service class
+No function required...
+
+
+In Dao Class
+
+No functiopn required....
+
